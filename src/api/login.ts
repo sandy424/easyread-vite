@@ -3,7 +3,7 @@ import api from './instance';
 export async function createUser() {
     try{
         const response = await api.post("/auth/signup");
-        
+
     }
 }
 
