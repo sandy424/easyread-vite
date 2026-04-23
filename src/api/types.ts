@@ -70,6 +70,11 @@ export interface UsageLogDelete{
 
 }
 
+// 서버 상태 체크
+export interface HealthStatus{
+    status: string
+}
+
 // 나만의 질문
 export const PrivateQuestion = {
   FAVORITE_FRUIT: 'FAVORITE_FRUIT',
