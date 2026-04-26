@@ -51,7 +51,7 @@ export interface UsageLogDetailResponse{
 }
 
 // 기록 제목 수정_PATCH
-export interface UsageLogUpdateResquest{
+export interface UsageLogUpdateRequest{
     title: string
 }
 
