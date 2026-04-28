@@ -1,9 +1,10 @@
+import SignupTest from './components/SignupTest';
 
 function App() {
 
   return (
     <>
-      
+      <SignupTest/>
     </>
   )
 }
