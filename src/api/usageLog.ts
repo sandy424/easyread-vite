@@ -1,4 +1,4 @@
-import api from "./instance";
+import { api } from "./instance.ts";
 import type { UsageLogUpdateRequest } from "./types";
 
 // 사용 기록 목록 get 요청

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import * as auth from '../api/auth.ts';
 import { type PrivateQuestionAndLabel, type UserPrivateQuestion } from "../api/types.ts";
 
@@ -12,6 +13,8 @@ export default function SignupForm() {
   const [formMsg, setFormMsg] = useState<{text: string; ok: boolean} | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   
+  const navigate = useNavigate();
+
   // 처음 렌더링할 때마다 나만의 질문 목록을 받아온다.
   useEffect(() => {
     const fetchPrivateQuestions = async() => {
@@ -28,19 +31,23 @@ export default function SignupForm() {
     fetchPrivateQuestions();
   },[]);
 
+  // 회원가입폼 버튼 함수
   const handleSubmit = async() => {
     setFormMsg(null);
     try{
         setIsLoading(true);
         console.log(username, password, privateAnswer, privateQuestion)
-        const result = await auth.postSignup({
+        const res = await auth.postSignup({
             username,
             password,
             private_question: privateQuestion,
             private_answer: privateAnswer,
         });
-        console.log(result);
+        console.log(res);
         setFormMsg({text: "가입이 완료되었습니다", ok: true});
+        navigate('/signup/success', {
+          state: { user: res }
+        })
     }catch (err) {
         setFormMsg({text: err.response.data.detail, ok: false});
     }finally{
@@ -51,7 +58,9 @@ export default function SignupForm() {
   return (
     <div className="bg-mint-10 w-full min-h-screen flex justify-center items-center scroll-hidden">
       <div className="border border-transparent bg-mint-50 rounded-2xl w-[480px] h-[650px] m-20 flex flex-col items-center p-8">
-        <span className="text-teal-900 text-2xl font-semibold">EZREAD</span>
+        <span className="text-teal-900 text-2xl font-semibold">
+          <Link to='/'>EZREAD</Link>
+        </span>
         <p className="text-teal-600 text-sm pt-3 font-medium">
           EZREAD에 오신 것을 환영합니다.
         </p>
