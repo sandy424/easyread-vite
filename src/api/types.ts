@@ -84,3 +84,8 @@ export const PrivateQuestion = {
   BIRTH_CITY: 'BIRTH_CITY',
 } as const;
 export type UserPrivateQuestion = (typeof PrivateQuestion)[keyof typeof PrivateQuestion]
+
+export type PrivateQuestionAndLabel = {
+  value: UserPrivateQuestion;
+  label: string;
+};
