@@ -66,9 +66,17 @@ export interface UsageLogUpdateResponse{
 }
 
 //기록 삭제_DELETE
-export interface UsageLogDelete{
+export type DeleteRecordErrorDetail = {
+  loc: string[];
+  msg: string;
+  type: string;
+  input: null;
+  ctx: Record<string, unknown>;
+};
 
-}
+export type DeleteRecordErrorResponse = {
+  detail: DeleteRecordErrorDetail[];
+};
 
 // 서버 상태 체크
 export interface HealthStatus{
