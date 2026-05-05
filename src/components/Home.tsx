@@ -6,12 +6,11 @@ import * as auth from '../api/auth.ts';
 export default function Home() {
 
     const [userInfo, setUserInfo] = useState<UserInfoResponse>();
-    const [isLoading, setIsLoading] = useState<Boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        
         const fetchUserInfo = async() => {
             try {
                 setIsLoading(true);
@@ -28,7 +27,8 @@ export default function Home() {
 
     const handleLogout = () => {
         localStorage.removeItem('accessToken');
-        navigate('/login');
+        setUserInfo(undefined);
+        navigate('/');
     }
 
     return (
@@ -39,19 +39,32 @@ export default function Home() {
                 <span className="text-2xl font-semibold font-en text-mint-900 text-center">
                     EZREAD
                 </span>
-                <span>
-                    안녕하세요, {userInfo?.username}님
-                </span>
+                
                 <nav className="flex items-center justify-end text-sm text-mint-600">
-                    <Link to="/login" className="hover:text-mint-900 transition-colors">
-                        로그인
-                    </Link>
-                    <span className="inline-block w-px h-3 bg-mint-200 mx-3"></span>
-                    <button onClick={handleLogout} className="hover:text-mint-900 transition-colors" >로그아웃</button>
-                    <span className="inline-block w-px h-3 bg-mint-200 mx-3"></span>
-                    <Link to="/signup" className="hover:text-mint-900 transition-colors">
-                        회원가입
-                    </Link>
+                    { userInfo ? (
+                        <div className="flex gap-10 pr-36">
+                        <span>
+                            안녕하세요, <span className="text-mint-900 font-bold">{userInfo?.username}</span>님
+                        </span>
+                        <Link to='/mypage' className="hover:text-mint-900 transition-colors">
+                            마이페이지
+                        </Link>
+                        <button onClick={handleLogout} className="hover:text-mint-900 transition-colors">
+                            로그아웃
+                        </button>
+                        </div>
+                    ) : (
+                        <div className="flex gap-10 pr-36">
+                            <Link to="/login" className="hover:text-mint-900 transition-colors">
+                                로그인
+                            </Link>
+                            <Link to="/signup" className="hover:text-mint-900 transition-colors">
+                                회원가입
+                            </Link>
+                        </div>
+                    )}
+                    
+                    
                 </nav>
             </header>
 

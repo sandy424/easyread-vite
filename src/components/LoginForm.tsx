@@ -35,6 +35,7 @@ export default function LoginForm() {
     fetchPrivateQuestions();
   },[])
 
+  // 로그인폼 제출 버튼 함수
   const handleSubmit = async() => {
     try{
         setIsLoading(true);
@@ -49,7 +50,6 @@ export default function LoginForm() {
         navigate('/');
     }catch (err) {
         setFormMsg({alert: err.response.data.detail , ok: false});
-        setTimeout(() => setFormMsg(null), 5000);
     }finally{
         setIsLoading(false);
     }

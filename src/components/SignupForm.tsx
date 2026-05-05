@@ -31,7 +31,7 @@ export default function SignupForm() {
     fetchPrivateQuestions();
   },[]);
 
-  // 회원가입폼 버튼 함수
+  // 회원가입폼 제출 버튼 함수
   const handleSubmit = async() => {
     setFormMsg(null);
     try{
@@ -46,7 +46,7 @@ export default function SignupForm() {
         console.log(res);
         setFormMsg({text: "가입이 완료되었습니다", ok: true});
         navigate('/signup/success', {
-          state: { user: res }
+          state: { username }
         })
     }catch (err) {
         setFormMsg({text: err.response.data.detail, ok: false});
