@@ -66,6 +66,7 @@ export default function LoginForm() {
           <input
             type="text"
             name="username"
+            autoComplete="username"
             placeholder="아이디"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -74,6 +75,7 @@ export default function LoginForm() {
           <input
             type="password"
             name="password"
+            autoComplete="password"
             placeholder="6자 이상의 비밀번호를 입력하세요"
             value={password}
             onChange={(e) => setPassword(e.target.value)}

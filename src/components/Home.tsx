@@ -1,6 +1,36 @@
-import { Link } from "react-router-dom"
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom"
+import type { UserInfoResponse } from "../api/types";
+import * as auth from '../api/auth.ts';
 
 export default function Home() {
+
+    const [userInfo, setUserInfo] = useState<UserInfoResponse>();
+    const [isLoading, setIsLoading] = useState<Boolean>(false);
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        
+        const fetchUserInfo = async() => {
+            try {
+                setIsLoading(true);
+                const res = await auth.getUserInfo();
+                setUserInfo(res);
+            } catch(err) {
+                console.log(err.response.detail.data);
+            } finally {
+                setIsLoading(false);
+            }
+        }
+        fetchUserInfo();
+    },[]);
+
+    const handleLogout = () => {
+        localStorage.removeItem('accessToken');
+        navigate('/login');
+    }
+
     return (
         <div className="bg-mint-50 w-full min-h-screen flex flex-col items-center font-ko">
             <header className="flex items-center justify-between h-14 px-6 fixed top-0 left-0 right-0 bg-white border-b border-mint-100 z-50">
@@ -9,11 +39,15 @@ export default function Home() {
                 <span className="text-2xl font-semibold font-en text-mint-900 text-center">
                     EZREAD
                 </span>
-
+                <span>
+                    안녕하세요, {userInfo?.username}님
+                </span>
                 <nav className="flex items-center justify-end text-sm text-mint-600">
                     <Link to="/login" className="hover:text-mint-900 transition-colors">
                         로그인
                     </Link>
+                    <span className="inline-block w-px h-3 bg-mint-200 mx-3"></span>
+                    <button onClick={handleLogout} className="hover:text-mint-900 transition-colors" >로그아웃</button>
                     <span className="inline-block w-px h-3 bg-mint-200 mx-3"></span>
                     <Link to="/signup" className="hover:text-mint-900 transition-colors">
                         회원가입
