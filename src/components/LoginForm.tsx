@@ -24,7 +24,6 @@ export default function LoginForm() {
         const data: PrivateQuestionAndLabel[] = await auth.getPrivateQuestion();
         console.log(data)
         setPrivateQuestions(data);
-    
       } catch (err) {
         console.log(err.response.data.detail);
       } finally {
