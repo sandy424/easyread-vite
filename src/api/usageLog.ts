@@ -1,7 +1,13 @@
 import { api } from "./instance.ts";
 import type { UsageLogUpdateRequest } from "./types";
 
-// 사용 기록 목록 get 요청
+// 이미지 or PDF 업로드 → OCR → 단순화 → 저장 post 요청
+export async function postUpLoad() {
+    const response = await api.post("/usage-logs");
+    return(response.data)
+}
+
+// 사용 기록 목록 조회 get 요청
 export async function getUsageLog() {
     const response = await api.get("/usage-logs");
     return(response.data)
