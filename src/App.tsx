@@ -1,12 +1,12 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import Home from './components/Home';
-import SignupForm from './components/SignupForm';
-import LoginForm from './components/LoginForm';
-import SignupSuccess from './components/SignupSuccess';
-import MyPage from './components/MyPage';
+import Home from './pages/HomePage';
+import SignupForm from './pages/SignupFormPage';
+import LoginForm from './pages/LoginFormPage';
+import SignupSuccess from './pages/SignupSuccessPage';
+import MyPage from './pages/MyPage';
 import Header from './components/Header';
-import DetailPage from './components/DetailPage';
+import DetailPage from './pages/DetailPage';
 
 export default function App() {
   return (

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import * as log from '../api/usageLog.ts';
-import type { UsageLogDetailResponse } from "../api/types";
+import type { UsageLogDetailResponse } from "../api/types.ts";
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { UsageLogResponse } from "../api/types";
+import type { UsageLogResponse } from "../api/types.ts";
 import * as log from '../api/usageLog.ts';
 import { useNavigate } from "react-router-dom";
 
