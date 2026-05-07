@@ -6,6 +6,7 @@ import LoginForm from './components/LoginForm';
 import SignupSuccess from './components/SignupSuccess';
 import MyPage from './components/MyPage';
 import Header from './components/Header';
+import DetailPage from './components/DetailPage';
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
         <Route path="/login" element={<LoginForm />} />
         <Route path='/signup/success' element={<SignupSuccess />} />
         <Route path='/mypage' element={<MyPage />} />
+        <Route path='/mypage/detail/:id' element={<DetailPage />} />
       </Routes> 
     </BrowserRouter>
   );

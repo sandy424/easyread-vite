@@ -1,9 +1,12 @@
 import { api } from "./instance.ts";
-import type { UsageLogUpdateRequest } from "./types";
 
 // 이미지 or PDF 업로드 → OCR → 단순화 → 저장 post 요청
-export async function postUpLoad() {
-    const response = await api.post("/usage-logs");
+export async function postUpLoad(title: string, file: File) {
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('file', file);
+
+    const response = await api.post("/usage-logs", formData);
     return(response.data)
 }
 
@@ -14,8 +17,8 @@ export async function getUsageLog() {
 }
 
 // 사용 기록 목록 상세 get 요청
-export async function getUsageLogDetail(log_id:string, body: UsageLogUpdateRequest) {
-    const response = await api.get(`/usage-logs/${log_id}`, { params: body });
+export async function getUsageLogDetail(log_id:string) {
+    const response = await api.get(`/usage-logs/${log_id}`);
     return(response.data)
 }
 
