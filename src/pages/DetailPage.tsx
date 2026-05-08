@@ -1,56 +1,75 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom"
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import * as log from '../api/usageLog.ts';
-import type { UsageLogDetailResponse } from "../api/types.ts";
+import type { UsageLogDetailResponse } from '../api/types.ts';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
-
 export default function DetailPage() {
+  const { id } = useParams<string>();
+  console.log(id);
 
-    const { id } = useParams<string>();
-    console.log(id)
+  const [usageLogDetail, setUsageLogDeatil] = useState<UsageLogDetailResponse>();
+  const [isLoading, setIsLoading] = useState(false);
 
-    const [usageLogDetail, setUsageLogDeatil] =useState<UsageLogDetailResponse>();
-    const [isLoading, setIsLoading] = useState(false);
+  useEffect(() => {
+    const fetchUsageLogDetail = async () => {
+      try {
+        setIsLoading(true);
+        const res = await log.getUsageLogDetail(id);
+        setUsageLogDeatil(res);
+        console.log(err.response.detail.data);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchUsageLogDetail();
+  }, []);
 
-    useEffect(() => {
-        const fetchUsageLogDetail = async() => {
-            try{
-                setIsLoading(true);
-                const res = await log.getUsageLogDetail(id);
-                setUsageLogDeatil(res);
-            } catch (err) {
-                console.log(err.response.detail.data);
-            } finally {
-                setIsLoading(false);
-            }
-        }
-        fetchUsageLogDetail();
-    },[])
-
-    return(
-        <div className="max-w-3xl mx-auto px-4 py-8 pt-16">
-            {/* 헤더 카드 */}
-            <div className="flex items-center gap-4 bg-white border border-mint-100 rounded-xl px-5 py-4 mb-4">
-                <div className="w-12 h-12 rounded-lg bg-mint-50 flex items-center justify-center flex-shrink-0">
-                
-                </div>
-                <div className="flex-1 min-w-0">
-                <p className="text-base font-semibold text-mint-900 truncate">{usageLogDetail?.title}</p>
-                <p className="text-xs text-mint-400">{usageLogDetail?.file_name} · {usageLogDetail?.created_at && new Date(usageLogDetail.created_at).toLocaleDateString('ko-KR')}</p>
-                </div>
-            </div>
-
-            {/* 결과 카드 */}
-            <div className="bg-white border border-mint-100 rounded-xl px-6 py-5">
-                <p className="text-xs font-medium text-mint-400 uppercase tracking-widest mb-4">분석 결과</p>
-                <div className="prose prose-sm max-w-none">
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                    {usageLogDetail?.compact_result ?? ''}
-                </ReactMarkdown>
-                </div>
-            </div>
+  return (
+    <div className="max-w-3xl mx-auto px-4 py-8 pt-16">
+      {/* 헤더 카드 */}
+      <div className="flex items-center gap-4 bg-white border border-mint-100 rounded-xl px-5 py-4 mb-4">
+        <div className="w-12 h-12 rounded-lg bg-mint-50 flex items-center justify-center flex-shrink-0">
+          {/* 아이콘 */}
+          <div className="w-12 h-12 rounded-lg bg-mint-50 flex items-center justify-center flex-shrink-0">
+            <svg
+              xmlns="/fileName.svg"
+              className="w-8 h-8 text-mint-600"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={1.5}
+                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+              />
+            </svg>
+          </div>
         </div>
-    )
+        <div className="flex-1 min-w-0">
+          <p className="text-base font-semibold text-mint-900 truncate">{usageLogDetail?.title}</p>
+          <p className="text-xs text-mint-400">
+            {usageLogDetail?.file_name} ·{' '}
+            {usageLogDetail?.created_at &&
+              new Date(usageLogDetail.created_at).toLocaleDateString('ko-KR')}
+          </p>
+        </div>
+      </div>
+
+      {/* 결과 카드 */}
+      <div className="bg-white border border-mint-100 rounded-xl px-6 py-5">
+        <p className="text-xs font-medium text-mint-400 uppercase tracking-widest mb-4">
+          분석 결과
+        </p>
+        <div className="prose prose-sm max-w-none">
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+            {usageLogDetail?.compact_result ?? ''}
+          </ReactMarkdown>
+        </div>
+      </div>
+    </div>
+  );
 }
