@@ -7,6 +7,8 @@ import Header from '../components/Header.tsx';
 export default function MyPage() {
   const [usageLog, setUsageLog] = useState<UsageLogResponse[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isDelete, setIsDelete] = useState(false);
+
 
   const navitgate = useNavigate();
 
@@ -61,7 +63,8 @@ export default function MyPage() {
           </div>
 
           {/* 삭제 버튼 */}
-          <button className="flex items-center gap-1.5 text-sm text-red-400 border border-red-300 rounded-full px-4 py-1.5 hover:bg-red-50 transition-colors">
+          <button className="flex items-center gap-1.5 text-sm text-red-400 border border-red-300 rounded-full px-4 py-1.5 hover:bg-red-50 transition-colors"
+          >
             삭제하기
           </button>
         </div>

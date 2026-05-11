@@ -35,7 +35,7 @@ export default function Header() {
       <div className="flex-1" />
 
       <Link
-        to="/"
+        to="/upload"
         className="text-2xl font-semibold font-en text-mint-900 text-center whitespace-nowrap"
       >
         EZREAD

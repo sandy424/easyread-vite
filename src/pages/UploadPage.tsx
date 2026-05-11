@@ -27,7 +27,7 @@ export default function UploadPage() {
   return (
     <div className="bg-mint-50 w-full min-h-screen flex justify-center items-center font-ko">
       <Header />
-      <div className="w-full max-w-lg px-4 py-8">
+      <div className="w-full max-w-2xl px-4 py-8">
         <div className="bg-white border border-mint-100 rounded-xl p-7">
           {/* 제목 */}
           <div className="mb-5">
