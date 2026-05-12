@@ -28,6 +28,14 @@ export default function DetailPage() {
     fetchUsageLogDetail();
   }, []);
 
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-mint-50">
+        <p className="text-mint-600 text-sm">로딩 중...</p>
+      </div>
+    );
+  }
+  
   return (
     <div className="bg-mint-50 w-full min-h-screen flex items-center font-ko">
       

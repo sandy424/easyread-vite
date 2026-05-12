@@ -5,20 +5,16 @@ import * as auth from '../api/auth.ts';
 
 export default function Header() {
   const [userInfo, setUserInfo] = useState<UserInfoResponse>();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        setIsLoading(true);
         const res = await auth.getUserInfo();
         setUserInfo(res);
       } catch (err) {
         console.log(err.response.detail?.data);
-      } finally {
-        setIsLoading(false);
       }
     };
     fetchUserInfo();
