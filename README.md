@@ -48,8 +48,7 @@
 
 
 #### 📋 사용 기록
-<img width="842" height="488" alt="image" src="https://github.com/user-attachments/assets/3ed25047-51df-41b8-bf2d-4d1cb8163d39" />
-
+<img width="620" height="440" alt="image" src="https://github.com/user-attachments/assets/eb06b28c-ecfe-4aaa-bad4-fbd977db0d41" />
 
 </div>
 
