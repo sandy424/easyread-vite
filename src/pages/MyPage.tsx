@@ -7,8 +7,6 @@ import Header from '../components/Header.tsx';
 export default function MyPage() {
   const [usageLog, setUsageLog] = useState<UsageLogResponse[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isDelete, setIsDelete] = useState(false);
-
 
   const navitgate = useNavigate();
 
@@ -20,8 +18,10 @@ export default function MyPage() {
         const res = await log.getUsageLog();
         setUsageLog(res);
         console.log(res);
-      } catch (err) {
-        console.log(err.response.detail.data);
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          console.log(err.message);
+        }
       } finally {
         setIsLoading(false);
       }
@@ -40,7 +40,7 @@ export default function MyPage() {
       await log.deleteUsageLog(id);
       // 현재 목록에서 삭제한 id만 제거
       setUsageLog((prev) => prev.filter((item) => String(item.id) !== id));
-    } catch (err) {
+    } catch (err: unknown) {
       console.error(err);
     }
   }

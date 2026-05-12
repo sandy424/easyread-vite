@@ -22,8 +22,10 @@ export default function SignupFormPage() {
       try {
         const data: PrivateQuestionAndLabel[] = await auth.getPrivateQuestion();
         setPrivateQuestions(data);
-      } catch (err) {
-        console.log(err.response.data.detail);
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          console.log(err.message);
+        }
       } finally {
         setIsLoading(false);
       }
@@ -48,8 +50,10 @@ export default function SignupFormPage() {
       navigate('/signup/success', {
         state: { username },
       });
-    } catch (err) {
-      setFormMsg({ text: err.response.data.detail, ok: false });
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setFormMsg({ text: err.message, ok: false });
+      }
     } finally {
       setIsLoading(false);
     }

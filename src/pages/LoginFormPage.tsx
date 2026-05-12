@@ -24,8 +24,10 @@ export default function LoginFormPage() {
         const data: PrivateQuestionAndLabel[] = await auth.getPrivateQuestion();
         console.log(data);
         setPrivateQuestions(data);
-      } catch (err) {
-        console.log(err.response.data.detail);
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          console.log(err.message);
+        }
       } finally {
         setIsLoading(false);
       }
@@ -46,8 +48,10 @@ export default function LoginFormPage() {
       localStorage.setItem('accessToken', result.access_token);
       console.log(result);
       navigate('/upload');
-    } catch (err) {
-      setFormMsg({ alert: err.response.data.detail, ok: false });
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setFormMsg({ alert: err.message, ok: false });
+      }
     } finally {
       setIsLoading(false);
     }
