@@ -17,7 +17,7 @@ export default function DetailPage() {
     const fetchUsageLogDetail = async () => {
       try {
         setIsLoading(true);
-        const res = await log.getUsageLogDetail(id);
+        const res = await log.getUsageLogDetail(id!);
         setUsageLogDeatil(res);
       } catch (err: unknown) {
         if (err instanceof Error) {
