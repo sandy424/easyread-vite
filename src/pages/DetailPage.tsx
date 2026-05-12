@@ -19,8 +19,10 @@ export default function DetailPage() {
         setIsLoading(true);
         const res = await log.getUsageLogDetail(id);
         setUsageLogDeatil(res);
-      } catch (err) {
-        console.log(err.response.detail.data);
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          console.log(err.message);
+        }
       } finally {
         setIsLoading(false);
       }
@@ -35,7 +37,7 @@ export default function DetailPage() {
       </div>
     );
   }
-  
+
   return (
     <div className="bg-mint-50 w-full min-h-screen flex items-center font-ko">
       

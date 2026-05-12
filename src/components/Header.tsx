@@ -13,13 +13,16 @@ export default function Header() {
       try {
         const res = await auth.getUserInfo();
         setUserInfo(res);
-      } catch (err) {
-        console.log(err.response.detail?.data);
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          console.log(err.message);
+        }
       }
     };
     fetchUserInfo();
   }, [location.pathname]);
 
+  // 로그아웃 버튼
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
     setUserInfo(undefined);

@@ -15,10 +15,12 @@ export default function UploadPage() {
   const handleSubmit = async () => {
     try {
       setIsLoading(true);
-      const res = await log.postUpLoad(title, file);
+      const res = await log.postUpLoad(title, file!); // file!: undefinded가 아니다
       navigate(`/mypage/detail/${res.id}`);
-    } catch (err) {
-      console.log(err.response.data.detail);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        console.log(err.message);
+      }
     } finally {
       setIsLoading(false);
     }
@@ -53,7 +55,7 @@ export default function UploadPage() {
                 type="file"
                 accept="image/png,image/jpeg,image/webp,image/gif,application/pdf"
                 className="hidden"
-                onChange={(e) => setFile(e.target.files?.[0] ?? null)}
+                onChange={(e) => setFile(e.target.files?.[0] ?? undefined)}
               />
               {file ? (
                 <>
