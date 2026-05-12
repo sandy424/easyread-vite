@@ -19,6 +19,7 @@ export default function DetailPage() {
         setIsLoading(true);
         const res = await log.getUsageLogDetail(id);
         setUsageLogDeatil(res);
+      } catch (err) {
         console.log(err.response.detail.data);
       } finally {
         setIsLoading(false);

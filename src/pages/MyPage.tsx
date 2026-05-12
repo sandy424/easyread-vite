@@ -29,6 +29,22 @@ export default function MyPage() {
     fetchUsageLog();
   }, []);
 
+  // 기록 삭제 기능 추가
+  const handleDelete = async (id: string) => {
+    // confirm으로 팝업 띄우기
+    const ok = window.confirm('이 기록을 삭제할까요?');
+    if (!ok) return;
+
+    try {
+      // 삭제 api 호출
+      await log.deleteUsageLog(id);
+      // 현재 목록에서 삭제한 id만 제거
+      setUsageLog((prev) => prev.filter((item) => String(item.id) !== id));
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   if (isLoading) {
     return (
       <div className="bg-mint-50 w-full min-h-screen flex flex-col items-center justify-center font-ko">
@@ -61,12 +77,6 @@ export default function MyPage() {
               <span className="text-white">{usageLog.length}</span>
             </div>
           </div>
-
-          {/* 삭제 버튼 */}
-          <button className="flex items-center gap-1.5 text-sm text-red-400 border border-red-300 rounded-full px-4 py-1.5 hover:bg-red-50 transition-colors"
-          >
-            삭제하기
-          </button>
         </div>
 
         {/* 변환 기록 리스트 */}
@@ -78,6 +88,7 @@ export default function MyPage() {
           usageLog.map((item) => (
             <div
               key={item.id}
+              // DetailPage로 이동
               onClick={() => navitgate(`/mypage/detail/${item.id}`)}
               className="flex items-center gap-4 bg-white border border-mint-100 rounded-xl px-5 py-4 hover:border-mint-300 transition-colors cursor-pointer"
             >
@@ -110,6 +121,29 @@ export default function MyPage() {
                 {/* 날짜를 문자열로 변환 */}
                 {new Date(item.created_at).toLocaleDateString('ko-KR')}
               </span>
+
+              {/* 삭제 버튼 */}
+              <button
+              onClick={(e) => {
+                // 부모한테 전달 차단 => 상세페이지로 이동 못 하게 함.
+                e.stopPropagation();
+                handleDelete(String(item.id));
+              }}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-5 h-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={1.5}
+                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                  />
+                </svg>
+              </button>
             </div>
           ))
         )}
